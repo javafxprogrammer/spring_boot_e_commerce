@@ -26,15 +26,9 @@ package com.javafxcoder.e_commerce.controller;
 import com.javafxcoder.e_commerce.dto.CustomerDto;
 import com.javafxcoder.e_commerce.service.CustomerService;
 import com.javafxcoder.e_commerce.utility.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 /**
  *
@@ -54,14 +48,19 @@ public class CustomerController {
         return customerService.createCustomer(customerDto);
     }
 
-    @GetMapping(path = "select/phone/{phoneNumber}")
-    public ResponseEntity<ResponseBody> selectCustomer(@PathVariable(name = "phoneNumber") String phoneNumber) {
+    @GetMapping(path = "select/phone/{phone}")
+    public ResponseEntity<ResponseBody> selectCustomer(@PathVariable(name = "phone") String phoneNumber) {
         return customerService.selectCustomer(phoneNumber);
     }
     
     @GetMapping
     public ResponseEntity<?> selectAllCustomers(){
         return customerService.selectAllCustomers();
+    }
+
+    @DeleteMapping(path = "delete/phone/{phone}")
+    public ResponseEntity<?> deleteCustomer(@PathVariable(name = "phone") String phone){
+        return customerService.deleteCustomer(phone);
     }
     
 }

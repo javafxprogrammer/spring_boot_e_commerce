@@ -71,4 +71,14 @@ public class CustomerService {
         List<CustomerDto> customersToDtos = dtoConveter.customersToDtos(customers);
         return new ResponseEntity(new ResponseBody<>(HttpStatus.OK.value(), customersToDtos), HttpStatus.OK);
     }
+
+    public ResponseEntity<?> deleteCustomer(String phone) {
+        Boolean isDeleted = false;
+        if(customerRepository.deleteByPhoneNumber(phone)>0){
+            isDeleted = true;
+        }
+        return isDeleted
+                ? new ResponseEntity<>(new ResponseBody<>(HttpStatus.OK.value(), "delete successful"), HttpStatus.OK)
+                : new ResponseEntity<>(new ResponseBody<>(HttpStatus.OK.value(), "delete failed, because no records exit"), HttpStatus.OK);
+    }
 }
